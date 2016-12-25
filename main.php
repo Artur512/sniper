@@ -1,23 +1,28 @@
+<?php
+	require_once('includes/settings.php');
+	require_once('includes/class-allegro.php');
+	//if(isset($_POST["itemId"])){
+	//	 header("Location: productDetails.php");
+	//			exit;
+//	}
+	
+?>
 <!DOCTYPE html>
 <html >
 <head>
   <meta charset="UTF-8">
   <title>Allegro Sniper</title>
-  
-  
-  
       <link rel="stylesheet" href="css/style.css">
 
-  
 </head>
 
 <body>
  <div class="bid-page">
   <div class="form">
-    <form class="login-form">
-      <input type="text" placeholder="id" required/>
+    <form class="login-form" action="productDetails.php" method="post">
+      <input name="itemId" type="text" placeholder="id" required/>
       <input type="text" placeholder="price" required/>
-      <button type="submit">Bid</button>
+     <input type="submit" value="Sprawdź produkt"/>
     </form>
   </div>
 </div>

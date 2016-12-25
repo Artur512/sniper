@@ -22,7 +22,7 @@
 			
 			// przypisanie rezultatu funkcji doLoginEnc() do zmiennej globalnej $session
 			$this->session = $this->client->doLoginEnc($session_params);
-			echo 'działa logowanie!!!';
+			return true;
 		}
 		//sprawdzenie stanu konta
 		function MyBilling(){
