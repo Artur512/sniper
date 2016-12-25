@@ -42,5 +42,32 @@
 					);
 			return $this->client->doGetUserLogin($request);
 		}
+		function DoBidItem(){
+			$equest = array(
+			'sessionHandle' => '22eb99326c6be29aa16d07d622bcfbcbee94ad54846f2f4e03_1',
+			'bidItId' => 1086438628,
+			'bidUserPrice' => 15.00,
+			'bidQuantity' => 1,
+			'bidBuyNow' => 0
+		
+			);
+		return $this->client->doBidItem($request); 
+		}
+		function getItemInfo(){
+		$request = array(
+				'sessionHandle' => $this->session->sessionHandlePart,
+				'itemsIdArray' => array(6658212638)
+			);
+		return $this->client->doGetItemsInfo($request);
+		}
+		function getBidUsersInfo(){
+			$request = array(
+				'sessionHandle' => $this->session->sessionHandlePart,
+				'itemId' =>6658212638
+			);
+		
+		return $this->client->doGetBidItem2($request);
+		}
+			
 	}
 ?>

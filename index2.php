@@ -17,6 +17,9 @@
 	
 		//wyświetlenie nazwy zalogowanego użytkownika
 		var_dump($allegro->GetUserLogin());
+	//		var_dump($allegro->getItemInfo());
+		var_dump($allegro->getItemInfo());
+	//	var_dump($allegro->getItemFields());
     }
     catch(SoapFault $error) {
           echo 'error <br/>', $error->faultstring;
