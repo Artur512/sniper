@@ -21,7 +21,7 @@
   <div class="form">
     <form class="login-form" action="productDetails.php" method="post">
       <input name="itemId" type="text" placeholder="id" required/>
-      <input type="text" placeholder="price" required/>
+      <input type="text" placeholder="price" />
      <input type="submit" value="Sprawdź produkt"/>
     </form>
   </div>

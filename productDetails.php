@@ -4,8 +4,8 @@
 	$itemId = $_POST["itemId"];
 	echo $itemId;
 	try{
-		$allegro = new AllegroApi();
-		var_dump($allegro-> GetItemsInfo());
+	
+		var_dump($allegro-> GetItemsInfo($itemId));
 		
 		}catch(SoapFault $error) {
           echo 'error <br/>', $error->faultstring;
@@ -18,3 +18,6 @@
 
 
 ?>
+<html>
+ewrwerwer
+</html>
