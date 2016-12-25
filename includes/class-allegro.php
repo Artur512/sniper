@@ -8,14 +8,14 @@
 			$this->client = new SoapClient(WDSL);
 		}
 		//logowanko
-		function LoginEnc(){
+		function LoginEnc($login, $passEnc){
 			$sys_params = array('sysvar' => SYSVAR, 'countryId' => COUNTRY, 'webapiKey' => KEY);
 			$sys = (array)($this->client->doQuerySysStatus($sys_params));
 			
 			//padametry niezbędne do logowania, pierwsze cztery ze stałych zdefiniowanych w includes/settings.php
 			$session_params = array(
-				'userLogin' => LOGIN, 
-				'userHashPassword' => PASS_ENC, 
+				'userLogin' => $login, 
+				'userHashPassword' => $passEnc, 
 				'countryCode' => COUNTRY, 
 				'webapiKey' => KEY, 
 				'localVersion' => $sys['verKey']);
@@ -43,18 +43,29 @@
 			return $this->client->doGetUserLogin($request);
 		}
 		//pobranie informacji o aukcji
-		function GetItemsInfo(){
+		function GetItemsInfo($idAukcji){
 			$request = array(
 					   'sessionHandle' => $this->session->sessionHandlePart,
-					   'itemsIdArray' => array(6645067049),
-					   'getDesc' => 0, //czy pobrać opis oferty
-					   'getImageUrl' => 0, // czy pobrać adresy zdjęć
-					   'getAttribs' => 0, //czy pobrac liste parametrów przedmiotu aukcji
-					   'getPostageOptions' => 0, //czy pobrac opcje dostawy
-					   'getCompanyInfo' => 0, //czy pobrać dane firmy(dot. kont Firma)
+					   'itemsIdArray' => array($idAukcji),
+					   'getDesc' => 0, 
+					   'getImageUrl' => 0, 
+					   'getAttribs' => 0, 
+					   'getPostageOptions' => 0, 
+					   'getCompanyInfo' => 0, 
 					   'getProductInfo' => 0 //parametr zdeaktualizowany
 					);
 			return $this->client->doGetItemsInfo($request);
+		}
+		//składanie oferty
+		function BidItem($idAukcji, $kwota, $ilosc){
+			$request = array(
+						'sessionHandle' => $this->session->sessionHandlePart,
+						'bidItId' => $idAukcji,
+						'bidUserPrice' => $kwota,
+						'bidQuantity' => $ilosc,
+						'bidBuyNow' => 0,
+					);
+			return $this->client->doBidItem($request);
 		}
 		
 	}

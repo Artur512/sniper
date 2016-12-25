@@ -10,7 +10,7 @@
 		$allegro = new AllegroApi();
 		
 		//logowanie do allegro 
-		$allegro->LoginEnc();
+		$allegro->LoginEnc('garage-smi', 'kxCu9kTSQv/kL+/EFv0cXokgBYXhv0Sa1qWnCENA1WU=');
 		
 		//wyświetlenie stanu konta na allegro 
 		var_dump($allegro->MyBilling()); //var_dump wyświetla zwracane dane z funkcji w każdej strukturze - tutaj obiekt
@@ -18,10 +18,12 @@
 		//wyświetlenie nazwy zalogowanego użytkownika
 		var_dump($allegro->GetUserLogin());
 		
+		//pobranie informacji z aukcji (np. itPrice - cena)
 		echo 'oferty:';
-		print_r($allegro->GetItemsInfo());
-		echo '<br><br><br>oferty:';
-		var_dump($allegro->GetItemsInfo()->arrayItemListInfo->item->itemInfo->itPrice);
+		var_dump($allegro->GetItemsInfo(6645067049)->arrayItemListInfo->item->itemInfo->itPrice);
+		
+		//złożenie oferty
+		var_dump($allegro->BidItem(6645067049, 15, 1));
     }
     catch(SoapFault $error) {
           echo 'error <br/>', $error->faultstring;
