@@ -3,11 +3,14 @@
 	//załadowanie neizbędnych plików, pierwszy - zdefiniowane stałe (login, hasło, klucz api itp.), drugi - klasa AllegroApi
 	require_once('includes/settings.php');
 	require_once('includes/class-allegro.php');
+	require_once('includes/class-db.php');
+	
 
 	//wszystko wrzucone w traya żeby skrypt się nie rozkraczył jak coś z api albo z instrukcjami będzie nie tak
     try {
 		//tworzenie obiektu allegro (klasa, funkcje są w pliku includes/class-allegro.php)
 		$allegro = new AllegroApi();
+		$db = new DB();
 		
 		//logowanie do allegro 
 		$allegro->LoginEnc('garage-smi', 'kxCu9kTSQv/kL+/EFv0cXokgBYXhv0Sa1qWnCENA1WU=');
