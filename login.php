@@ -7,7 +7,7 @@
 					$allegro = new AllegroApi();
 		
 	
-		if($allegro->LoginEnc() == true){
+		if($allegro->LoginEnc('garage-smi', 'kxCu9kTSQv/kL+/EFv0cXokgBYXhv0Sa1qWnCENA1WU=') == true){
 			  header("Location: main.php");
 				exit;
 		
