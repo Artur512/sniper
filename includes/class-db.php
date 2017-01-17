@@ -15,13 +15,33 @@
 				
 			return true;
 		}
-		function getShot(){
+		function insertShot($idAuction, $maxPrice, $quantity, $runTime, $login, $passEnc){
+			$connect = $this->connection;
 			
-			return true;
+			$table = 'shots';
+			$query = "
+					INSERT INTO $table (id_auction, max_price, quantity, run_time, login, password)
+					VALUES ('$idAuction', '$maxPrice', '$quantity', '$runTime', '$login', '$passEnc')
+			;";
+			
+			$result = $connect->query($query);
+			
+			return $connect->insert_id;
 		}
-		function setShot(){
-		
-			return true;
+		function selectShot($snajpId){
+			$connect = $this->connection;
+			
+			$table = 'shots';
+			
+			$query = "
+					SELECT * 
+					FROM $table
+					WHERE id = '$snajpId'
+			;";
+			
+			$result = $connect->query($query);
+
+			return $result->fetch_assoc();
 		}
 		function removeShot(){
 		
@@ -30,4 +50,5 @@
 		
 	}
 	
+	$db = new DB;
 ?>
