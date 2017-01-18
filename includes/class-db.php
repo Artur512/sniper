@@ -43,9 +43,20 @@
 
 			return $result->fetch_assoc();
 		}
-		function removeShot(){
-		
-			return true;
+		function endTimeShot($snajpId){
+			$connect = $this->connection;
+			
+			$table = 'shots';
+			
+			$query = "
+					SELECT run_time 
+					FROM $table
+					WHERE id = '$snajpId'
+			;";
+			
+			$result = $connect->query($query);
+			
+			return $result->fetch_assoc();
 		}
 		
 	}

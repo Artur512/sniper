@@ -1,26 +1,32 @@
-<?php
+<?php	
+	
 	class SNAJP	{
 		
 		//zapisanie strzału do bazy i dodanie zadania do crona
-		function set($idAuction, $maxPrice, $quantity, $secBefore, $login, $passEnc){
+		function set($setData){
+		
 			global $allegro;
 			global $db;
 			
 			//DB
 				//logowanie do allegro 
-				$allegro->LoginEnc($login, $passEnc);
+				$allegro->LoginEnc($setData['login'], $this->passEnc($setData['pass']));
 				
 				//pobranie informacji z aukcji
-				$dataShot = $allegro->GetItemsInfo($idAuction)->arrayItemListInfo->item->itemInfo;
+				$dataShot = $allegro->GetItemsInfo((double)$setData['auctionId'])->arrayItemListInfo->item->itemInfo;
 				
-				$runTime = $dataShot->itEndingTime - $secBefore;
+				$runTime = $dataShot->itEndingTime - $setData['secBefore'];
 				
-				$db->insertShot($dataShot->itId, $maxPrice, $quantity, $runTime, $login, $passEnc);
-				//var_dump($dataShot->itId);
-			//CRON
-				
+				$lastId = $db->insertShot($dataShot->itId, $setData['maxPrice'], $setData['quantity'], $runTime, $setData['login'], $this->passEnc($setData['pass']));
 			
-			return true;
+			//CRON
+				//soon
+						
+			return $lastId;
+		}
+		function passEnc($pass){
+		
+			return base64_encode(hash('sha256', $pass, true));
 		}
 		function doBid($snajpId){
 			global $allegro;
@@ -30,9 +36,18 @@
 			
 			$allegro->LoginEnc($shotInfo['login'], $shotInfo['password']);
 			$allegro->BidItem((float)$shotInfo['id_auction'], $shotInfo['max_price'], $shotInfo['quantity']);
+			echo '<br>zalicytowało!!!!<br>';
 			
 			
 			return true;
+		}
+		function timeToShot($snajpId){
+			global $db;
+			
+			$secs = $db->endTimeShot($snajpId)['run_time'];
+			$time = time();
+			
+			return $secs - $time;
 		}
 		
 	}

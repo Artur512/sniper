@@ -65,7 +65,6 @@
 						'bidQuantity' => $ilosc,
 						'bidBuyNow' => 0,
 					);
-			var_dump($request);
 			return $this->client->doBidItem($request);
 		}
 		
