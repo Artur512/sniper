@@ -1,7 +1,21 @@
 <?php	
 	
 	class SNAJP	{
-		
+		//pobranie informacji o aukcji
+		function getInfo($data){
+			global $allegro;
+			global $db;
+			
+			//DB
+				//logowanie do allegro 
+				$allegro->LoginEnc($data['login'], $this->passEnc($data['pass']));
+				
+				//pobranie informacji z aukcji
+				$dataShot = $allegro->GetItemsInfo((double)$data['auctionId'])->arrayItemListInfo->item->itemInfo;
+				
+				$auctionEnd = $dataShot->itEndingTime;
+			return $dataShot;
+		}
 		//zapisanie strzału do bazy i dodanie zadania do crona
 		function set($setData){
 		
@@ -9,15 +23,17 @@
 			global $db;
 			
 			//DB
+				$l = $_SESSION['l'];
+				$p = $_SESSION['p'];
 				//logowanie do allegro 
-				$allegro->LoginEnc($setData['login'], $this->passEnc($setData['pass']));
+				$allegro->LoginEnc($l, $this->passEnc($p));
 				
 				//pobranie informacji z aukcji
 				$dataShot = $allegro->GetItemsInfo((double)$setData['auctionId'])->arrayItemListInfo->item->itemInfo;
 				
 				$runTime = $dataShot->itEndingTime - $setData['secBefore'];
 				
-				$lastId = $db->insertShot($dataShot->itId, $setData['maxPrice'], $setData['quantity'], $runTime, $setData['login'], $this->passEnc($setData['pass']));
+				$lastId = $db->insertShot($dataShot->itId, $setData['maxPrice'], $setData['quantity'], $runTime, $l, $this->passEnc($p));
 			
 			//CRON
 				//soon

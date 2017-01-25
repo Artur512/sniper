@@ -7,8 +7,6 @@
 				if($connect->connect_errno){
 					print_r("Connection failed %s\n", $connect->connect-error);
 					exit();
-				} else {
-					print_r("połączony z bazą");
 				}
 				
 				$this->connection =  $connect;

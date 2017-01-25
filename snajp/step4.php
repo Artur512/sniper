@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	require_once('../includes/settings.php');
 	require_once('../includes/class-allegro.php');
 	require_once('../includes/class-db.php');
